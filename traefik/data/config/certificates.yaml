@@ -1,0 +1,4 @@
+tls:
+  certificates:
+    - certFile: /etc/ssl/traefik/200.marti-net.ch.crt
+      keyFile: /etc/ssl/traefik/200.marti-net.ch.key

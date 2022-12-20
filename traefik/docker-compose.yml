@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - CF_API_EMAIL=user@example.com
+      - CF_DNS_API_TOKEN=YOU_API_TOKEN
+      # - CF_API_KEY=YOU_API_KEY
+      # be sure to use the correct one depending on if you are using a token or key
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /docker/projekt-ilv/traefik/data/traefik.yml:/traefik.yml:ro
+      - /docker/projekt-ilv/traefik/data/acme.json:/acme.json
+      - /docker/projekt-ilv/traefik/data/config:/config:ro
+      - /docker/projekt-ilv/traefik/data/cert:/etc/ssl/traefik:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.200.marti-net.ch`)"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=admin:$$apr1$$RMhNcTT6$38UrHERJYi30X2jK0zJEv/"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.200.marti-net.ch`)"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+
+networks:
+  proxy:
+    external: true
