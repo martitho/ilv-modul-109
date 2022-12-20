@@ -17,7 +17,7 @@ default_redirection_url: https://auth-test.200.marti-net.ch
 
 totp:
   disable: false
-  issuer: kara-network.local
+  issuer: 200.marti-net.ch
 
 ##
 ## Duo Push API Configuration
@@ -114,7 +114,7 @@ access_control:
   rules:
      - domain:
        - port.200.marti-net.ch
-       policy: two_factor
+       policy: one_factor
      - domain:
        - nc.200.marti-net.ch
        policy: one_factor

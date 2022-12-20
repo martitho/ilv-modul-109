@@ -25,4 +25,3 @@ services:
       disable: true
 networks:
   proxy:
-    external: true
