@@ -11,8 +11,8 @@ Benutzername und Passwort zum Testen sind:
 authelia
 authelia
 
-##service1
+## service1
 eine whoami Seite, die über authelia ein Login anfordert.
 
-##service2
+## service2
 Eine whoami Seite ohne Authentisierung.
