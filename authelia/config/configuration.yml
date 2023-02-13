@@ -13,11 +13,11 @@ log:
   ## Level of verbosity for logs: info, debug, trace.
   level: debug
 jwt_secret: dskfjbaslkgfuaerilugraeligfjkdfskljbgadslkjeralkbjbgalk
-default_redirection_url: https://auth-test.200.marti-net.ch
+default_redirection_url: https://auth.ilv.local
 
 totp:
   disable: false
-  issuer: 200.marti-net.ch
+  issuer: ilv.local
 
 ##
 ## Duo Push API Configuration
@@ -113,16 +113,12 @@ access_control:
   default_policy: deny
   rules:
      - domain:
-       - port.200.marti-net.ch
+       - service1.ilv.local
        policy: one_factor
-     - domain:
-       - nc.200.marti-net.ch
-       policy: one_factor
-
 
 session:
   name: authelia_session
-  domain: 200.marti-net.ch
+  domain: ilv.local
   same_site: lax
 
   ## The secret to encrypt the session data. This is only used with Redis / Redis Sentinel.
@@ -175,4 +171,3 @@ notifier:
 
   filesystem:
     filename: /config/notification.txt
-...

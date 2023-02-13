@@ -10,18 +10,19 @@ services:
       - proxy
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.authelia.rule=Host(`auth-test.200.marti-net.ch`)'
+      - 'traefik.http.routers.authelia.rule=Host(`auth.ilv.local`)'
       - 'traefik.http.routers.authelia.entrypoints=https'
       - 'traefik.http.routers.authelia.tls=true'
-      - 'traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https://auth-test.200.marti-net.ch'
+      - 'traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https://auth.ilv.local'
       - 'traefik.http.middlewares.authelia.forwardauth.trustForwardHeader=true'
       - 'traefik.http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
     expose:
       - 9091
-    restart: unless-stopped
     environment:
       - TZ=Europe/Zurich
     healthcheck:
       disable: true
 networks:
   proxy:
+    name: traefik_proxy
+    external: true

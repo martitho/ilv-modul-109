@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  service1:
+    image: containous/whoami
+    container_name: service1
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+#      - "traefik.http.routers.service1.rule=Host(`service1.ilv.local`)"
+#      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+#      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+#      - "traefik.http.routers.service1.middlewares=authelia@docker"
+      - "traefik.http.routers.service1-secure.entrypoints=https"
+      - "traefik.http.routers.service1-secure.rule=Host(`service1.ilv.local`)"
+      - "traefik.http.routers.service1-secure.middlewares=authelia@docker"
+      - "traefik.http.routers.service1-secure.tls=true"
+#      - "traefik.http.routers.service1-secure.service=api@internal"
+networks:
+  proxy:
+    name: traefik_proxy
+
+    external: true
+
