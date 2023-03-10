@@ -4,6 +4,7 @@ services:
   service1:
     image: containous/whoami
     container_name: service1
+    restart: unless-stopped
     networks:
       - proxy
     labels:
