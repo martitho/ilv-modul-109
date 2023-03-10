@@ -18,6 +18,7 @@ services:
       - 'traefik.http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
     expose:
       - 9091
+    restart: unless-stopped
     environment:
       - TZ=Europe/Zurich
     healthcheck:
