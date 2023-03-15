@@ -60,5 +60,6 @@ services:
       - proxy
       - default
 networks:
-  traefik_proxy:
+  proxy:
+    name: traefik_proxy
     external: true
