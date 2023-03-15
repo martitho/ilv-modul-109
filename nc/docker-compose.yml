@@ -28,7 +28,7 @@ services:
     #ports:
     #  - 8980:80
     links:
-      - db
+      - nc-db
     volumes:
       - nextcloud:/var/www/html
     environment:
