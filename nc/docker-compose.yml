@@ -7,7 +7,7 @@ volumes:
 services:
   nc-db:
     image: mariadb:10.5
-          container_name: nextcloud-db
+    container_name: nextcloud-db
     restart: unless-stopped
     command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
     volumes:
@@ -23,6 +23,7 @@ services:
 
   app:
     image: nextcloud
+    container_name: nextcloud-app
     restart: unless-stopped
     #ports:
     #  - 8980:80
