@@ -42,6 +42,7 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=db
+      - VIRTUAL_HOST=nc.ilv.local
     #networks:
     #  - proxy
     #labels:
