@@ -40,9 +40,9 @@ services:
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.service1-secure.entrypoints=https"
-      - "traefik.http.routers.service1-secure.rule=Host(`nc.ilv.local`)"
-      - "traefik.http.routers.service1-secure.tls=true"
+      - "traefik.http.routers.nc-secure.entrypoints=https"
+      - "traefik.http.routers.nc-secure.rule=Host(`nc.ilv.local`)"
+      - "traefik.http.routers.nc-secure.tls=true"
 
 
 
