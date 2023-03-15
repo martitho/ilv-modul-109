@@ -17,7 +17,7 @@ services:
       - MYSQL_PASSWORD=QwErT
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-          networks:
+    networks:
       - proxy
 
 
