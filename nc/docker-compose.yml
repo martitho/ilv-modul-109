@@ -36,7 +36,7 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=db
-          networks:
+    networks:
       - proxy
     labels:
       - "traefik.enable=true"
