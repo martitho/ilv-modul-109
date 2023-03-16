@@ -2,26 +2,26 @@ version: '3.3'
 
 volumes:
   nextcloud:
-  nextcloud-db:
+#  nextcloud-db:
   
 services:
-  nextcloud-db:
-    image: mariadb
-    container_name: nextcloud-db
-    #command: --transaction-isolation=READ-COMMITTED --innodb_read_only_compressed=OFF
-    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
-    restart: unless-stopped
-    volumes:
-      - nextcloud-db:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=test #SQL root Passwort eingeben
-      - MYSQL_PASSWORD=test #SQL Benutzer Passwort eingeben
-      - MYSQL_DATABASE=nextcloud #Datenbank Name
-      - MYSQL_USER=nextcloud #SQL Nutzername
-      - MYSQL_INITDB_SKIP_TZINFO=1
-      - MARIADB_AUTO_UPGRADE=1
-    networks:
-      - default
+#  nextcloud-db:
+#    image: mariadb
+#    container_name: nextcloud-db
+#    #command: --transaction-isolation=READ-COMMITTED --innodb_read_only_compressed=OFF
+#    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
+#    restart: unless-stopped
+#    volumes:
+#      - nextcloud-db:/var/lib/mysql
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=test #SQL root Passwort eingeben
+#      - MYSQL_PASSWORD=test #SQL Benutzer Passwort eingeben
+#      - MYSQL_DATABASE=nextcloud #Datenbank Name
+#      - MYSQL_USER=nextcloud #SQL Nutzername
+#      - MYSQL_INITDB_SKIP_TZINFO=1
+#      - MARIADB_AUTO_UPGRADE=1
+#    networks:
+#      - default
   nextcloud-redis:
     image: redis:alpine
     container_name: nextcloud-redis
