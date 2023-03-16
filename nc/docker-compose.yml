@@ -39,12 +39,12 @@ services:
       - nextcloud-db
       - nextcloud-redis
     environment:
-        #TRUSTED_PROXIES: 172.19.0.4/16
-        #OVERWRITEPROTOCOL: https
+        TRUSTED_PROXIES: 172.19.0.4/16
+        OVERWRITEPROTOCOL: https
         OVERWRITECLIURL: https://nc.ilv.local
         OVERWRITEHOST: nc.ilv.local
-        REDIS_HOST: nextcloud-redis
-        REDIS_HOST_PASSWORD: test # Redis Passwort von oben wieder eingeben
+        #REDIS_HOST: nextcloud-redis
+        #REDIS_HOST_PASSWORD: test # Redis Passwort von oben wieder eingeben
     volumes:
       - nextcloud:/var/www/html
       #- nextcloud:/var/www/html/data
