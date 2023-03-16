@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
     environment:
         TRUSTED_PROXIES: 172.19.0.4/16
-        OVERWRITEPROTOCOL: https
+        #OVERWRITEPROTOCOL: https
         OVERWRITECLIURL: https://nc.ilv.local
         OVERWRITEHOST: nc.ilv.local
         #REDIS_HOST: nextcloud-redis
