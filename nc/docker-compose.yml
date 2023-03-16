@@ -46,8 +46,8 @@ services:
         REDIS_HOST: nextcloud-redis
         REDIS_HOST_PASSWORD: test # Redis Passwort von oben wieder eingeben
     volumes:
-      - ./app:/var/www/html
-      - ./daten:/var/www/html/data
+      - nextcloud:/var/www/html
+      #- nextcloud:/var/www/html/data
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.nextcloud.entrypoints=https"
