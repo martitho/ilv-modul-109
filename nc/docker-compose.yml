@@ -5,39 +5,10 @@ volumes:
   nextcloud-db:
   
 services:
-  nextcloud-db:
-    image: mariadb
-    container_name: nextcloud-db
-    #command: --transaction-isolation=READ-COMMITTED --innodb_read_only_compressed=OFF
-    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
-    restart: unless-stopped
-    volumes:
-      - nextcloud-db:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=test #SQL root Passwort eingeben
-      - MYSQL_PASSWORD=test #SQL Benutzer Passwort eingeben
-      - MYSQL_DATABASE=nextcloud #Datenbank Name
-      - MYSQL_USER=nextcloud #SQL Nutzername
-      - MYSQL_INITDB_SKIP_TZINFO=1
-      - MARIADB_AUTO_UPGRADE=1
-    networks:
-      - default
-  nextcloud-redis:
-    image: redis:alpine
-    container_name: nextcloud-redis
-    hostname: nextcloud-redis
-    networks:
-        - default
-    restart: unless-stopped
-    command: redis-server --requirepass test # Redis Passwort eingeben
-    
-  nextcloud-app:
+nextcloud-app:
     image: nextcloud
     container_name: nextcloud-app
     restart: unless-stopped
-    depends_on:
-      - nextcloud-db
-      - nextcloud-redis
     environment:
         TRUSTED_PROXIES: 172.19.0.4/16
         OVERWRITEPROTOCOL: https
@@ -47,19 +18,11 @@ services:
         #REDIS_HOST_PASSWORD: test # Redis Passwort von oben wieder eingeben
     volumes:
       - nextcloud:/var/www/html
-      #- nextcloud:/var/www/html/data
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.nextcloud.entrypoints=https"
       - "traefik.http.routers.nextcloud.rule=(Host(`nc.ilv.local`))"
       - "traefik.http.routers.nextcloud.tls=true"
-      #- "traefik.http.routers.nextcloud.tls.certresolver=http"
-      #- "traefik.http.routers.nextcloud.service=nextcloud"
-      #- "traefik.http.services.nextcloud.loadbalancer.server.port=80"
-      #- "traefik.docker.network=proxy"
-      #- "traefik.http.routers.nextcloud.middlewares=nextcloud-dav,default@file"
-      #- "traefik.http.middlewares.nextcloud-dav.replacepathregex.regex=^/.well-known/ca(l|rd)dav"
-      #- "traefik.http.middlewares.nextcloud-dav.replacepathregex.replacement=/remote.php/dav/"
 
     networks:
       - proxy
