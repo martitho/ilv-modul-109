@@ -5,7 +5,7 @@ volumes:
   nextcloud-db:
   
 services:
-nextcloud-app:
+  nextcloud-app:
     image: nextcloud
     container_name: nextcloud-app
     restart: unless-stopped
