@@ -1,33 +1,27 @@
-version: '3.3'
-
+version: '2'
 volumes:
-  nextcloud:
-  nextcloud-db:
-  
+   nextcloud:
+   db:
+   data:
 services:
-  nextcloud-app:
-    image: nextcloud
-    container_name: nextcloud-app
-    restart: unless-stopped
-    environment:
-        TRUSTED_PROXIES: 172.19.0.4/16
-        #OVERWRITEPROTOCOL: https
-        OVERWRITECLIURL: https://nc.ilv.local
-        OVERWRITEHOST: nc.ilv.local
-        #REDIS_HOST: nextcloud-redis
-        #REDIS_HOST_PASSWORD: test # Redis Passwort von oben wieder eingeben
-    volumes:
-      - nextcloud:/var/www/html
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.nextcloud.entrypoints=https"
-      - "traefik.http.routers.nextcloud.rule=(Host(`nc.ilv.local`))"
-      - "traefik.http.routers.nextcloud.tls=true"
-
-    networks:
-      - proxy
-      - default
-networks:
-  proxy:
-    name: traefik_proxy
-    external: true
+  db:
+     image: mariadb
+     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+     restart: always
+     volumes:
+       - db:/var/lib/mysql
+     environment:
+       - MYSQL_ROOT_PASSWORD=1234osradar
+       - MYSQL_PASSWORD=1234osradar
+       - MYSQL_DATABASE=nextclouddb
+       - MYSQL_USER=nextclouduser
+  app:
+     image: nextcloud
+     ports:
+       - 80:80
+     links:
+       - db
+     volumes:
+       - nextcloud:/var/www/html
+       - data:/var/www/html/data
+     restart: always
