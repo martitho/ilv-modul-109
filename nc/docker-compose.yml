@@ -1,4 +1,9 @@
 version: '3.3'
+
+volumes:
+  nextcloud:
+  nextcloud-db:
+  
 services:
   nextcloud-db:
     image: mariadb
@@ -7,9 +12,7 @@ services:
     command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
     restart: unless-stopped
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
-      - /opt/containers/nextcloud/database:/var/lib/mysql
+      - nextcloud-db:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=test #SQL root Passwort eingeben
       - MYSQL_PASSWORD=test #SQL Benutzer Passwort eingeben
